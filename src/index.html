@@ -1,40 +1,60 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    
-    <title>Dashboard Laboratoria</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-      <img src="imagen/logo.png" class="logo">
+<html lang="en">
 
-      <div class="boxMenu">
-        <h2>ESTADÍSTICA DEL PROGRESO DE ALUMNAS</h2>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Laboratoria - Dashboard</title>
+</head>
 
-      <div>
-      <button class="buttonStudents"> <strong>ALUMNAS</strong> </button>
-      </div>
-      
-      <div>
-      <button class="buttonCohorts"> <strong>COHORTS</strong> </button>
+<body>
+  <div class="sidenav" id="mySidenav">
+    <div class="logocontainer">
+      <img src="img/logo.png" class="logo">
     </div>
+    <img src="img/user.jpg" class="user-img">
+    <div class="user-name">Mia
+      <br> Sotomayor</div>
+    <div class="user-type">Administradora</div>
 
-      <div>
-      <button class="buttonInstructors"> <strong>INSTRUCTORES</strong> </button>
+    <div class="sidemenu">
+      <button class="menuButton accordion">Campus
+        <i class="fas fa-angle-double-right"></i>
+      </button>
+      <div class="panel">
+      </div>
+      <button class="menuButton">Mensajes</button>
+      <button class="menuButton">Configuración</button>
     </div>
-  
-    <!-- caja para llenar el contenido -->
-      <div id="boxbody">        
+  </div>
+  <div class="content" id="mycontent">
+    <header>
+      <div class="toggle-btn" onclick="toogleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
+      <p>Bienvenida Mia ¿que haremos hoy?</p>
+    </header>
 
-      <div>
-        <p id= "nameList"></p>        
+    <div class="contentdata">
+      <h1>/Cohorts</h1>
+      <hr>
+      <p>Selecciona un campus del menu para comenzar:</p>
+      <hr>
+      <div class="grid2x2">
+
       </div>
+    </div>
+  </div>
 
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
 
-    <script src="data.js"></script>
-    <script src="main.js"></script>
-  </body>
 </html>
