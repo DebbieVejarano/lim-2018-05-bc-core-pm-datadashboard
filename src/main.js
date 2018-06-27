@@ -13,9 +13,11 @@ const textpanel = document.getElementById('textpanel')
 const searchbox = document.getElementById('searchbox')
 const loader = document.getElementsByClassName('loader')
 
-let userRaw = []
+
 let progressRaw
 let coursesRaws
+
+
 
 // FETCH INICIALES
 const dataCohorts = fetch('https://api.laboratoria.la/cohorts').then(response =>

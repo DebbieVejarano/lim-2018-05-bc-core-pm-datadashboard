@@ -1,39 +1,41 @@
-let campusesRaw
-
 //Variables globales
+let userRaw = []
+let campusesRaw
 let percent = new Object()
 let courses = []
 let usersWithStats = []
 usersWithStats['stats'] = []
 let filterNameArray = []
+let computeCourses
+//***********************************
 
-//************************************/
-
-let computeCourses = idcohort => {
-  courses = []
-
-  for (n in coursesRaw) {
-    if (coursesRaw[n].id === idcohort) {
-      courses = coursesRaw[n]
-    }
-  }
-}
-
-let getPercent = (quantity, total) => {
-  if (quantity === 0) {
-    return 0
-  } else {
-    return Math.round((quantity / total) * 100)
-  }
-}
-
-let getAverage = (score, total) => {
-  return Math.round(score / total)
-}
 
 let computeUsersStats = (users, progress, courses) => {
-  usersWithStats = []
 
+
+  usersWithStats = []
+  let computeCourses = idcohort => {
+    courses = []
+  
+    for (n in coursesRaw) {
+      if (coursesRaw[n].id === idcohort) {
+        courses = coursesRaw[n]
+      }
+    }
+  }
+  
+  let getPercent = (quantity, total) => {
+    if (quantity === 0) {
+      return 0
+    } else {
+      return Math.round((quantity / total) * 100)
+    }
+  }
+  
+  let getAverage = (score, total) => {
+    return Math.round(score / total)
+  }
+  
   users.map(user => {
     let idUser = user.id
     let cohorUser = user.signupCohort
