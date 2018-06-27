@@ -34,7 +34,7 @@
   </div>
   <div class="content" id="mycontent">
     <header>
-      <div class="toggle-btn" onclick="toogleSidebar()">
+      <div class="toggle-btn" onclick="toggleSidebar()">
         <span></span>
         <span></span>
         <span></span>
@@ -42,13 +42,44 @@
       <p>Bienvenida Mia ¿que haremos hoy?</p>
     </header>
 
+    <div class="loader"></div>
+    
     <div class="contentdata">
-      <h1>/Cohorts</h1>
+      <h1 id="h1content">¿Comenzamos?</h1>
+      <h2 id="h2content"></h2>
       <hr>
-      <p>Selecciona un campus del menu para comenzar:</p>
+      <div>
+        <p id="textpanel">Selecciona un campus del menu para comenzar:</p>
+        <div class="searcharea">
+          <p class="buscarText">Buscar:</p>
+          <div class="search">
+            <input id="searchbox" type="text" onkeyup="search()">
+          </div>
+        </div>
+      </div>
       <hr>
-      <div class="grid2x2">
-
+      <!-- DIVS PARA LOS COHORT -->
+      <div class="grid2x2"></div>
+      <!-- DIVS PARA EL SEARCH -->
+      <div id="usersArea">
+        <div class="topsearchmenu">
+          <div class="sortbutton" onclick="sortBy('name')">Nombre
+            <i class="fas fa-sort"></i>
+          </div>
+          <div class="sortbutton" onclick="sortBy('read')">Lecturas(%)
+            <i class="fas fa-sort"></i>
+          </div>
+          <div class="sortbutton" onclick="sortBy('excersises')">Ejercicios(%)
+            <i class="fas fa-sort"></i>
+          </div>
+          <div class="sortbutton" onclick="sortBy('quizz')">Quizzes(%)
+            <i class="fas fa-sort"></i>
+          </div>
+          <div class="sortbutton" onclick="sortBy('total')">Total(%)
+            <i class="fas fa-sort"></i>
+          </div>
+        </div>
+        <div class="users"></div>
       </div>
     </div>
   </div>

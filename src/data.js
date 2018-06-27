@@ -1,12 +1,3 @@
-//************************************/
-//Creamos variables para el guardar la data en bruto
-//que viene el Json
-//Declaramos los array como tales - []
-//y los objetos - new Object
-//************************************/
-let userRaw = []
-let progressRaw
-let coursesRaw
 let campusesRaw
 
 //Variables globales
@@ -18,13 +9,14 @@ let filterNameArray = []
 
 //************************************/
 
-let computeCourses = () => {
+let computeCourses = idcohort => {
   courses = []
-  coursesRaw.map(coh => {
-    data = {}
-    data[coh.id] = coh.coursesIndex
-    courses.push(data)
-  })
+
+  for (n in coursesRaw) {
+    if (coursesRaw[n].id === idcohort) {
+      courses = coursesRaw[n]
+    }
+  }
 }
 
 let getPercent = (quantity, total) => {
@@ -40,6 +32,8 @@ let getAverage = (score, total) => {
 }
 
 let computeUsersStats = (users, progress, courses) => {
+  usersWithStats = []
+
   users.map(user => {
     let idUser = user.id
     let cohorUser = user.signupCohort
@@ -61,47 +55,44 @@ let computeUsersStats = (users, progress, courses) => {
     let completedPractice = 0
     let percentPractice = 0
 
-    //Obtenemos el cohort del usuario
-    courses.find(coh => {
-      if (Object.keys(coh)[0] === cohorUser) {
-        Object.entries(coh).map(un => {
-          cohortName = Object.keys(un[1])
+    if (courses.id === cohorUser) {
+      Object.keys(courses.coursesIndex).map(cohortName => {
+        if (progress[idUser].hasOwnProperty(cohortName)) {
+          percentUser = progress[idUser][cohortName].percent
 
-          if (progress[idUser].hasOwnProperty(cohortName)) {
-            percentUser = progress[idUser][cohortName].percent
+          unitsArray = Object.entries(progress[idUser][cohortName].units)
 
-            unitsArray = Object.entries(progress[idUser][cohortName].units)
-            unitsArray.map(units => {
-              Object.entries(units[1].parts).map(unit => {
-                if (unit[1].type === 'read') {
-                  numberRead++
-                  completedRead += unit[1].completed
-                } else if (unit[1].type === 'quiz') {
-                  numberQuiz++
-                  completedQuiz += unit[1].completed
-                  if (unit[1].completed === 0) {
-                    scoreSum += 0
-                  } else {
-                    scoreSum += unit[1].score
-                  }
-                } else if (unit[1].type === 'practice') {
-                  numberPractice++
-                  completedPractice += unit[1].completed
+          unitsArray.map(units => {
+            Object.entries(units[1].parts).map(unit => {
+              if (unit[1].type === 'read') {
+                numberRead++
+                completedRead += unit[1].completed
+              } else if (unit[1].type === 'quiz') {
+                numberQuiz++
+                completedQuiz += unit[1].completed
+                if (unit[1].completed === 0) {
+                  scoreSum += 0
+                } else {
+                  scoreSum += unit[1].score
                 }
-              })
+              } else if (unit[1].type === 'practice') {
+                numberPractice++
+                completedPractice += unit[1].completed
+              }
             })
-            scoreAvg = getAverage(scoreSum, numberQuiz)
-          }
-        })
-      }
-    })
+          })
+        }
+
+        scoreAvg = getAverage(scoreSum, numberQuiz)
+      })
+    }
 
     percentRead = getPercent(completedRead, numberRead)
     percentQuiz = getPercent(completedQuiz, numberQuiz)
     percentPractice = getPercent(completedPractice, numberPractice)
 
     userStats = {}
-    userStats.stats ={
+    userStats.stats = {
       id: idUser,
       name: nameUser,
 
@@ -185,54 +176,18 @@ let filterUsers = (users, search) => {
   filterNameArray = []
   filterNameArray.stats = []
 
-  users.stats.filter(
+  users.filter(
     x =>
-      x.name.includes(search.toUpperCase()) ? filterNameArray.stats.push(x) : 0
+      x.stats.name.includes(search.toUpperCase())
+        ? filterNameArray.stats.push(x)
+        : 0
   )
   return filterNameArray
 }
+
 let processCohortData = options => {}
 
-//************************************/
-// COMENZAMOS A HACER LAS PROMESAS Y A EJECUTAR LAS FUNCIONES NESECARIAS
-// SOLO CUANDO TODAS LAS PROMESAS SE HAYAN CUMPLIDO
-//************************************/
-const dataUsers = fetch(
-  '../data/cohorts/lim-2018-03-pre-core-pw/users.json'
-).then(response => response.json())
-const dataProgress = fetch(
-  '../data/cohorts/lim-2018-03-pre-core-pw/progress.json'
-).then(response => response.json())
-const dataCohorts = fetch('https://api.laboratoria.la/cohorts').then(response =>
-  response.json()
-)
-const dataCampuses = fetch('https://api.laboratoria.la/campuses').then(
-  response => response.json()
-)
-
-Promise.all([dataUsers, dataProgress, dataCohorts, dataCampuses]).then(data => {
-  //Copiamos la data de usuario en bruto
-  userRaw = data[0]
-  //Copiamos todo el progress en bruto
-  progressRaw = data[1]
-  //Copiamos todo los cursos en bruto
-  coursesRaw = data[2]
-  //Copiamos los Campus
-  campusesRaw = data[3]
-
-  //Procesamos la informacion recaudada en funciones
-  computeCourses()
-
-  //test
-  computeUsersStats(userRaw, progressRaw, courses)
-  addButtonCampuses()
-  //sortUsers(usersWithStats, "porcentaje", "ASC")
-  //filterUsers(usersWithStats, "alexandra")
-})
-
-
-
-/* window.processCohortData = processCohortData
+window.processCohortData = processCohortData
 window.computeUsersStats = computeUsersStats
 window.sortUsers = sortUsers
-window.filterUsers = filterUsers */
+window.filterUsers = filterUsers
