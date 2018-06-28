@@ -23,7 +23,7 @@ describe('data', () => {
     const { users, progress } = fixtures;
 
     it('debería retornar arreglo de usuarios con propiedad stats', () => {
-      const processed = computeUsersStats(users, progress, courses);
+      const processed = computeUsersStats(users, progress, courses) ;
 
       assert.equal(users.length, processed.length);
 

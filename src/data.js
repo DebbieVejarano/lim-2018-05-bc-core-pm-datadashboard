@@ -1,17 +1,4 @@
-//Variables globales
-let userRaw = []
-let campusesRaw
-let percent = new Object()
-let courses = []
-let usersWithStats = []
-usersWithStats['stats'] = []
-let filterNameArray = []
-let computeCourses
-//***********************************
-
-
-let computeUsersStats = (users, progress, courses) => {
-
+window.computeUsersStats = (users, progress, courses) => {
 
   usersWithStats = []
   let computeCourses = idcohort => {
@@ -124,7 +111,7 @@ let computeUsersStats = (users, progress, courses) => {
   return usersWithStats
 }
 
-let sortUsers = (users, orderBy, orderDirection) => {
+window.sortUsers = (users, orderBy, orderDirection) => {
   if (orderBy === 'nombre' || orderBy === 'name') {
     users.stats.sort((a, b) => {
       x = a.name
@@ -174,7 +161,7 @@ let sortUsers = (users, orderBy, orderDirection) => {
   }
 }
 
-let filterUsers = (users, search) => {
+window.filterUsers = (users, search) => {
   filterNameArray = []
   filterNameArray.stats = []
 
@@ -187,9 +174,9 @@ let filterUsers = (users, search) => {
   return filterNameArray
 }
 
-let processCohortData = options => {}
+window.processCohortData = options => {}
 
-window.processCohortData = processCohortData
-window.computeUsersStats = computeUsersStats
-window.sortUsers = sortUsers
-window.filterUsers = filterUsers
+// window.processCohortData = processCohortData
+// window.computeUsersStats = computeUsersStats
+// window.sortUsers = sortUsers
+// window.filterUsers = filterUsers

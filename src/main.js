@@ -27,12 +27,23 @@ const dataCampuses = fetch('https://api.laboratoria.la/campuses').then(
   response => response.json()
 )
 
+let campusesRaw
+//Variables globales
+let userRaw = []
+let percent = new Object()
+let courses = []
+let usersWithStats = []
+usersWithStats['stats'] = []
+let filterNameArray = []
+let computeCourses
 Promise.all([dataCohorts, dataCampuses]).then(data => {
   displayShowHide(loader[0], 'hide')
   displayShowHide(contentdata, 'show')
 
   coursesRaw = data[0]
   campusesRaw = data[1]
+
+  
 
   addCampuses()
   makeAccordeonButton()
