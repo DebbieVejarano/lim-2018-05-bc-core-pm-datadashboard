@@ -5,7 +5,8 @@ window.computeUsersStats = (users, progress, courses) => {
   //Variable que re retornará al final
 
   users.map(user => {
-    let percentUser = 0,
+    if (user.role === 'student'){
+      let percentUser = 0,
       numberPractice = 0,
       completedPractice = 0,
       percentPractice = 0,
@@ -115,6 +116,8 @@ window.computeUsersStats = (users, progress, courses) => {
       }
     }
     usersWithStats.push(userStats)
+  
+    }
   })
 
   return usersWithStats
